@@ -153,3 +153,15 @@ universell
 O12‑kompatibel
 
 Axiom‑rein
+
+## ECO‑Symbol (Balance / Symbiose / Neutralität)
+
+𐄷
+
+Bedeutung:
+- Universelles ECO‑Glyph
+- Balance zwischen Markt, Kapital, Achsen und Axiomen
+- Symbiose zwischen Raum‑Modulen (O12, RUN8, TOOLOMAT, TIME, RESPO, RAUM)
+- Neutraler Kern des EOC‑MESSERS
+- Nicht materiell → systemisch scharf
+- ID‑Marke für ECO‑Instanz
