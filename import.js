@@ -1,4 +1,4 @@
-// import.js – AUTO-PATH für alle Module
+// import.js – AUTO‑PATH für MXU/ECO
 
 export async function ECO_IMPORT() {
 
