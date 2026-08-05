@@ -20,44 +20,6 @@ pre { background:#111; padding:12px; border:1px solid #333; }
 
 <hr>
 
-<h2>System‑Status</h2>
-<pre id="eco-status">Lade…</pre>
-
-<script type="module">
-import { ECO_IMPORT } from "./import.js";
-import { NC_CHECK } from "./NCCheck.js";
-
-// Module laden
-const { MXU, RESPO, AXINXA, TXT } = await ECO_IMPORT();
-
-// Index‑Signal
-const sync = MXU.MXU_fullSync({ msg: "ECO.INDEX" });
-
-// NC‑Kern‑Check
-const ncEval = NC_CHECK(sync);
-
-// RESPO‑Feed
-const feed = RESPO.RESPO(sync);
-
-// Achsen
-const axis = AXINXA.AXINXA.runAll();
-
-// PX
-const px = TXT.processTXT({ msg: "ECO.INDEX" });
-
-// Ausgabe
-document.getElementById("eco-status").innerHTML =
-JSON.stringify({
-    treue: sync.treue,
-    nc: ncEval,
-    axis,
-    px,
-    respo: feed
-}, null, 2);
-</script>
-
-<hr>
-
 <h2>ROOT‑Module</h2>
 <a href="./INDEX.html">INDEX.html</a>
 <a href="./ID.html">ID.html</a>
@@ -66,7 +28,6 @@ JSON.stringify({
 <a href="./MARKT.html">MARKT.html</a>
 <a href="./SELF.html">SELF.html</a>
 <a href="./toolomatter.html">toolomatter.html</a>
-<a href="./self.html">self.html</a>
 
 <hr>
 
@@ -92,19 +53,8 @@ JSON.stringify({
 
 <hr>
 
-<h2>Visual / External</h2>
-<a href="./visual/o12.html">visual/o12.html</a>
-<a href="./visual/room.html">visual/room.html</a>
-<a href="./BRM/BRM.index.html">BRM/BRM.index.html</a>
-<a href="./TIME/index.html">TIME/index.html</a>
-<a href="./RUN8/run8.html">RUN8/run8.html</a>
-<a href="https://iki1uc.github.io/9vec3tor/" target="_blank">RESPO Cube – 9vec3tor</a>
-
-<hr>
-
 <h2>Status</h2>
-<p>Alle Links basieren auf deiner echten Ordnerstruktur.</p>
-<p>import.js + NCCheck.js werden automatisch genutzt.</p>
+<p>Alle Links verweisen auf Dateien, die wirklich existieren.</p>
 <p>Keine 404 mehr.</p>
 
 </body>
