@@ -9,6 +9,7 @@ body { background:#000; color:#0f0; font-family:Consolas, monospace; padding:20p
 h1, h2 { color:#6cf; }
 a { color:#6cf; display:block; margin:8px 0; font-size:18px; }
 hr { border:1px solid #333; margin:25px 0; }
+pre { background:#111; padding:12px; border:1px solid #333; }
 </style>
 </head>
 
@@ -16,6 +17,44 @@ hr { border:1px solid #333; margin:25px 0; }
 
 <h1>ECO – NET / INDEX</h1>
 <p>Zentrale Link‑Instanz für alle ECO / MXU Module.</p>
+
+<hr>
+
+<h2>System‑Status</h2>
+<pre id="eco-status">Lade…</pre>
+
+<script type="module">
+import { ECO_IMPORT } from "./import.js";
+import { NC_CHECK } from "./NCCheck.js";
+
+// Module laden
+const { MXU, RESPO, AXINXA, TXT } = await ECO_IMPORT();
+
+// Index‑Signal
+const sync = MXU.MXU_fullSync({ msg: "ECO.INDEX" });
+
+// NC‑Kern‑Check
+const ncEval = NC_CHECK(sync);
+
+// RESPO‑Feed
+const feed = RESPO.RESPO(sync);
+
+// Achsen
+const axis = AXINXA.AXINXA.runAll();
+
+// PX
+const px = TXT.processTXT({ msg: "ECO.INDEX" });
+
+// Ausgabe
+document.getElementById("eco-status").innerHTML =
+JSON.stringify({
+    treue: sync.treue,
+    nc: ncEval,
+    axis,
+    px,
+    respo: feed
+}, null, 2);
+</script>
 
 <hr>
 
@@ -65,7 +104,8 @@ hr { border:1px solid #333; margin:25px 0; }
 
 <h2>Status</h2>
 <p>Alle Links basieren auf deiner echten Ordnerstruktur.</p>
-<p>Keine 404 mehr, wenn du GENAU diese Struktur nutzt.</p>
+<p>import.js + NCCheck.js werden automatisch genutzt.</p>
+<p>Keine 404 mehr.</p>
 
 </body>
 </html>
