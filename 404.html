@@ -1,5 +1,18 @@
 <script>
-// 9 Räume definieren
+// ECO / MXU UNIVERSAL-ZUSTÄNDE
+const STATES = {
+    OK:   { bp:1, achse:"X",  urs:"Vorhanden",       wir:"Normal",     hor:0 },
+    MISS: { bp:2, achse:"Δ",  urs:"Pfad falsch",     wir:"Umleitung",  hor:1 },
+    FAIL: { bp:9, achse:"Ø",  urs:"Nicht existent",  wir:"Abbruch",    hor:9 },
+    RDY:  { bp:3, achse:"R",  urs:"Bereit",          wir:"Start",      hor:2 },
+    FIT:  { bp:4, achse:"F",  urs:"Kompatibel",      wir:"Synergie",   hor:3 },
+    FIX:  { bp:5, achse:"C",  urs:"Repariert",       wir:"Stabil",     hor:2 },
+    FIN:  { bp:6, achse:"N",  urs:"Abgeschlossen",   wir:"Ruhe",       hor:1 },
+    HELP: { bp:7, achse:"H",  urs:"Assistenz",       wir:"Support",    hor:2 },
+    ERROR:{ bp:8, achse:"E",  urs:"Unklar",          wir:"Analyse",    hor:5 }
+};
+
+// 9 Räume (häufigste MXU-Räume)
 const ROOMS = [
     "INDEX.html",
     "DOM/DOM.html",
@@ -12,7 +25,7 @@ const ROOMS = [
     "tool48/pyramide.html"
 ];
 
-// Raum-Check Funktion
+// Raum-Check
 async function checkRoom(path) {
     try {
         const res = await fetch(path, { method: "HEAD" });
@@ -22,17 +35,46 @@ async function checkRoom(path) {
     }
 }
 
-// Beam‑Point / Achse / Ursache / Wirkung / Horizont
+// Diagnose
 function ecoDiagnose(status, room) {
+    const s = STATES[status] || STATES.ERROR;
+
     return {
         room,
         status,
-        beamPoint: status === "OK" ? 1 : status === "MISS" ? 2 : 9,
-        achse: status === "OK" ? "X" : status === "MISS" ? "Δ" : "Ø",
-        ursache: status === "OK" ? "Vorhanden" : status === "MISS" ? "Pfad falsch" : "Nicht existent",
-        wirkung: status === "OK" ? "Normal" : status === "MISS" ? "Umleitung" : "Abbruch",
-        horizont: status === "OK" ? "0" : status === "MISS" ? "1" : "9"
+        beamPoint: s.bp,
+        achse: s.achse,
+        ursache: s.urs,
+        wirkung: s.wir,
+        horizont: s.hor
     };
+}
+
+// KOOP – Team-Bildung
+function koop(a, b) {
+    return {
+        pair: a.room + " ↔ " + b.room,
+        achseMatch: a.achse === b.achse ? "OK" : "Δ",
+        beamMatch: Math.abs(a.beamPoint - b.beamPoint) <= 2 ? "OK" : "MISS",
+        horizontMatch: Math.abs(a.horizont - b.horizont) <= 2 ? "OK" : "MISS",
+        kooperation:
+            (a.status === "OK" && b.status === "OK") ? "HOT" :
+            (a.status === "MISS" && b.status === "MISS") ? "LOW" :
+            (a.status === "FIT"  && b.status === "FIT")  ? "SYNC" :
+            (a.status === "RDY"  && b.status === "RDY")  ? "START" :
+            "FAIL"
+    };
+}
+
+// Matrix
+function buildMatrix(results) {
+    const matrix = [];
+    for (let i = 0; i < results.length; i++) {
+        for (let j = i + 1; j < results.length; j++) {
+            matrix.push(koop(results[i], results[j]));
+        }
+    }
+    return matrix;
 }
 
 // Hauptlauf
@@ -44,9 +86,18 @@ function ecoDiagnose(status, room) {
         results.push(ecoDiagnose(status, room));
     }
 
+    const matrix = buildMatrix(results);
+
     document.getElementById("eco404").innerHTML =
-        JSON.stringify(results, null, 2);
+        JSON.stringify({
+            diagnose: results,
+            team: matrix
+        }, null, 2);
 })();
+</script>
+
+<pre id="eco404">REV 8‑78 – KOOP CORE – Lade…</pre>
+
 </script>
 
 <pre id="eco404">ECO 404 – Lade Diagnose…</pre>
