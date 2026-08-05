@@ -72,6 +72,48 @@ ECO ist:
 </pre>
 
 <hr>
+<hr>
+
+<h2>ECO‑RESPO Bewertung</h2>
+<pre id="eco-eval"></pre>
+
+<script type="module">
+import { MXU_fullSync } from "./MXU_fullSync.js";
+import { RESPO } from "./respo.js";
+import { AXINXA } from "./AXINXA.js";
+import { processTXT } from "./txt/raw.txt";
+
+// Dateiname erkennen
+const file = location.pathname.split("/").pop().replace(".html","");
+
+// MXU‑Signal erzeugen
+const sync = MXU_fullSync({ msg: "ECO." + file });
+
+// RESPO‑Feed
+const feed = RESPO(sync);
+
+// Achsen
+const axis = AXINXA.runAll();
+
+// PX
+const px = processTXT({ msg: "ECO." + file });
+
+// Bewertung erzeugen
+const evalData = {
+    file,
+    treue: sync.treue.status,
+    score: sync.treue.score,
+    px: px ? "PX OK" : "PX FAIL",
+    axis: axis ? "AXIS OK" : "AXIS FAIL",
+    nc: sync.nc ? "NC OK" : "NC FAIL",
+    respo: feed ? "RESPO OK" : "RESPO FAIL",
+    alive: sync.treue.status === "FAIL" ? "LEICHE" : "LEBT"
+};
+
+// Ausgabe
+document.getElementById("eco-eval").innerHTML =
+    JSON.stringify(evalData, null, 2);
+</script>
 
 <h2>ID‑Status</h2>
 <pre>
