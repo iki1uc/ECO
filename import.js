@@ -1,3 +1,21 @@
+// import.js – AUTO‑PATH für MXU/ECO
+
+export async function ECO_IMPORT() {
+
+    // Ordner-Tiefe bestimmen
+    const depth = location.pathname.split("/").length - 2;
+    const ROOT = "../".repeat(depth);
+
+    // Dynamische Imports
+    const MXU = await import(ROOT + "MXU_fullSync.js");
+    const RESPO = await import(ROOT + "respo.js");
+    const AXINXA = await import(ROOT + "AXINXA.js");
+    const TXT = await import(ROOT + "txt/raw.txt");
+
+    return { MXU, RESPO, AXINXA, TXT };
+}
+
+
 https://iki1uc.github.io/MXU/INDEX.html
 
 https://iki1uc.github.io/MXU/ID.html
