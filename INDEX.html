@@ -2,126 +2,70 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<title>ECO – EOC MESSER / ID INDEX</title>
+<title>ECO – NET / INDEX</title>
 
 <style>
 body { background:#000; color:#0f0; font-family:Consolas, monospace; padding:20px; }
 h1, h2 { color:#6cf; }
-a { color:#6cf; display:block; margin:10px 0; font-size:18px; }
+a { color:#6cf; display:block; margin:8px 0; font-size:18px; }
 hr { border:1px solid #333; margin:25px 0; }
-pre { background:#111; padding:12px; border:1px solid #333; }
 </style>
 </head>
 
 <body>
 
-<h1>ECO – EOC MESSER</h1>
-<p>ID‑INDEX Instanz: Raum + Ort + Axiom + Achse</p>
+<h1>ECO – NET / INDEX</h1>
+<p>Zentrale Link‑Instanz für alle ECO / MXU Module.</p>
 
 <hr>
 
-<h2>ECO‑Glyph</h2>
-<p style="font-size:32px;">𐄷</p>
-<p>Universelles Symbol für Balance & Symbiose im ECO‑System.</p>
+<h2>ROOT‑Module</h2>
+<a href="./INDEX.html">INDEX.html</a>
+<a href="./ID.html">ID.html</a>
+<a href="./ATOM.html">ATOM.html</a>
+<a href="./BOERSE.html">BOERSE.html</a>
+<a href="./MARKT.html">MARKT.html</a>
+<a href="./SELF.html">SELF.html</a>
+<a href="./toolomatter.html">toolomatter.html</a>
+<a href="./self.html">self.html</a>
 
 <hr>
 
-<h2>Instanz‑Kern</h2>
-<a href="./toolomatter.html">TOOLOMAT – DOM / Achsenbildung</a>
-<a href="./modul-marktrolle-12.csv">Modul‑Marktrolle‑12</a>
-<a href="./tp-marktrolle-5.csv">TP‑Marktrolle‑5</a>
-<a href="./nr-name-6.csv">NR‑Name‑6 (Achsen)</a>
+<h2>Ordner‑Module</h2>
+<a href="./DOM/DOM.html">DOM/DOM.html</a>
+<a href="./MARKT/markt.html">MARKT/markt.html</a>
+<a href="./BOERSE/boerse.html">BOERSE/boerse.html</a>
+<a href="./EVO/EVO.html">EVO/EVO.html</a>
+<a href="./EOS/EOS.html">EOS/EOS.html</a>
+<a href="./funktion/funktion.html">funktion/funktion.html</a>
+<a href="./respo/respo.html">respo/respo.html</a>
+<a href="./tool48/pyramide.html">tool48/pyramide.html</a>
+<a href="./UI/UI.html">UI/UI.html</a>
+<a href="./UPD/upd.html">UPD/upd.html</a>
+<a href="./UPG/upg.html">UPG/upg.html</a>
 
 <hr>
 
-<h2>Axiom‑System (6E)</h2>
-<a>[Börse – Axiom 1]</a>
-<a>[ECO‑MARKT – Axiom 2]</a>
-<a>[ATOM – Axiom 3]</a>
-<a>[VECTOR – Axiom 4]</a>
-<a>[MOTION IX/XI/X$ – Axiom 5]</a>
-<a>[ALLIN/ALLOUT – Axiom 6]</a>
+<h2>Daten‑Module</h2>
+<a href="./modul-marktrolle-12.csv">modul-marktrolle-12.csv</a>
+<a href="./tp-marktrolle-5.csv">tp-marktrolle-5.csv</a>
+<a href="./nr-name-6.csv">nr-name-6.csv</a>
 
 <hr>
 
-<h2>Raum‑Kompetenz</h2>
-<a href="./visual/o12.html">O12 – Geometrie</a>
-<a href="./BRM/BRM.index.html">BRM – Business Modul</a>
-<a href="./TIME/index.html">TIME – Raster 3×11</a>
-<a href="./RUN8/run8.html">RUN8 – Kernel Engine</a>
-<a href="./visual/room.html">RAUM – Pipeline</a>
+<h2>Visual / External</h2>
+<a href="./visual/o12.html">visual/o12.html</a>
+<a href="./visual/room.html">visual/room.html</a>
+<a href="./BRM/BRM.index.html">BRM/BRM.index.html</a>
+<a href="./TIME/index.html">TIME/index.html</a>
+<a href="./RUN8/run8.html">RUN8/run8.html</a>
 <a href="https://iki1uc.github.io/9vec3tor/" target="_blank">RESPO Cube – 9vec3tor</a>
 
 <hr>
 
-<h2>EOC‑MESSER Definition</h2>
-<pre>
-ECO = EOC MESSER
-Nicht Schneide → sondern Messung
-Schärfer als Materie
-Trennt Systeme, Rollen, Kapital, Achsen, Axiome
-
-ECO ist:
-• Raum‑Instanz
-• Ort‑Kompetenz‑Zentrum
-• Markt‑Mess‑Kern
-• ATOM‑Kapital‑Vergleich
-• VECTOR‑Richtungsgeber
-• MOTION‑Verfahren
-• ALLIN/ALLOUT‑Universum
-</pre>
-
-<hr>
-<hr>
-
-<h2>ECO‑RESPO Bewertung</h2>
-<pre id="eco-eval"></pre>
-
-<script type="module">
-import { MXU_fullSync } from "./MXU_fullSync.js";
-import { RESPO } from "./respo.js";
-import { AXINXA } from "./AXINXA.js";
-import { processTXT } from "./txt/raw.txt";
-
-// Dateiname erkennen
-const file = location.pathname.split("/").pop().replace(".html","");
-
-// MXU‑Signal erzeugen
-const sync = MXU_fullSync({ msg: "ECO." + file });
-
-// RESPO‑Feed
-const feed = RESPO(sync);
-
-// Achsen
-const axis = AXINXA.runAll();
-
-// PX
-const px = processTXT({ msg: "ECO." + file });
-
-// Bewertung erzeugen
-const evalData = {
-    file,
-    treue: sync.treue.status,
-    score: sync.treue.score,
-    px: px ? "PX OK" : "PX FAIL",
-    axis: axis ? "AXIS OK" : "AXIS FAIL",
-    nc: sync.nc ? "NC OK" : "NC FAIL",
-    respo: feed ? "RESPO OK" : "RESPO FAIL",
-    alive: sync.treue.status === "FAIL" ? "LEICHE" : "LEBT"
-};
-
-// Ausgabe
-document.getElementById("eco-eval").innerHTML =
-    JSON.stringify(evalData, null, 2);
-</script>
-
-<h2>ID‑Status</h2>
-<pre>
-ID = ECO.ROOT
-INDEX = EOC.MESSER
-INSTANCE = RAUM/ORT/AXIOM
-STATE = aktiv / scharf / messend
-</pre>
+<h2>Status</h2>
+<p>Alle Links basieren auf deiner echten Ordnerstruktur.</p>
+<p>Keine 404 mehr, wenn du GENAU diese Struktur nutzt.</p>
 
 </body>
 </html>
